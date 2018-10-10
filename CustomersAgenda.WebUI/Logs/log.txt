@@ -1,2 +1,0 @@
-2018-10-10 22:34:52,612 [8] DEBUG CustomersAgenda.WebUI.Controllers.CustomerController - Controller: Customer, Action: Index
-2018-10-10 22:35:37,369 [16] DEBUG CustomersAgenda.WebUI.Controllers.CustomerController - Controller: Customer, Action: Index
