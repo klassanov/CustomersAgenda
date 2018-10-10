@@ -1,6 +1,7 @@
 ﻿using CustomersAgenda.Domain.Entities;
 using CustomersAgenda.Domain.Interfaces;
 using CustomersAgenda.Domain.Repositories;
+using CustomersAgenda.WebUI.ViewModels;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,25 @@ namespace CustomersAgenda.WebUI.Controllers
             //Use ninject
             CustomerRepository = new CustomerRepository();
             IQueryable<Customer> customers= CustomerRepository.GetAll();
-            return View(customers);
+            List<CustomerViewModel> customerViewModelList = null;
+            //Refactor: do it by in another point
+            if (customers != null)
+            {
+                customerViewModelList = new List<CustomerViewModel>();
+                foreach (Customer item in customers)
+                {
+                    customerViewModelList.Add(new CustomerViewModel
+                    {
+                        Id=item.Id,
+                        FirstName=item.FirstName,
+                        LastName=item.LastName,
+                        BirthDate=item.BirthDate,
+                        DueAmount=item.DueAmount
+                    });
+                }
+            }
+
+            return View(customerViewModelList);
         }
     }
 }

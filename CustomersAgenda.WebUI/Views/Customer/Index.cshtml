@@ -1,11 +1,11 @@
-﻿@using CustomersAgenda.Domain.Entities
-@model IEnumerable<CustomersAgenda.Domain.Entities.Customer>
+﻿@using CustomersAgenda.WebUI.ViewModels
+@model IEnumerable<CustomerViewModel>
 
 @{
     ViewBag.Title = "Customers List";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
