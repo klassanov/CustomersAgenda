@@ -12,21 +12,17 @@ namespace CustomersAgenda.WebUI.Controllers
 {
     public class CustomerController : Controller
     {
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(CustomerController));
-
+        // private static readonly ILog Logger = LogManager.GetLogger(typeof(CustomerController));
         //For property injection use [Inject]
-        private ICustomerRepository customerRepository { get; set; }
+        private ICustomerRepository customerRepository;
 
         public CustomerController(ICustomerRepository customerRepository)
         {
             this.customerRepository = customerRepository;
         }
         
-
-        // GET: Customer
-        public ActionResult Index()
+        public ViewResult List()
         {
-            Logger.Debug("Controller: Customer; Action: Index");
             IQueryable<Customer> customers= customerRepository.GetAll();
             List<CustomerViewModel> customerViewModelList = null;
             //Refactor: do it by in another point
@@ -35,17 +31,85 @@ namespace CustomersAgenda.WebUI.Controllers
                 customerViewModelList = new List<CustomerViewModel>();
                 foreach (Customer item in customers)
                 {
-                    customerViewModelList.Add(new CustomerViewModel
-                    {
-                        Id=item.Id,
-                        FirstName=item.FirstName,
-                        LastName=item.LastName,
-                        BirthDate=item.BirthDate,
-                        DueAmount=item.DueAmount
-                    });
+                    customerViewModelList.Add(CreateCustomerViewModel(item));
                 }
             }
             return View(customerViewModelList);
         }
+
+        public ViewResult Edit(int id)
+        {
+            Customer customer=customerRepository.GetById(id);
+            CustomerViewModel customerViewModel = CreateCustomerViewModel(customer);
+            return View(customerViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(CustomerViewModel customerViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                customerRepository.Save(CreateCustomer(customerViewModel));
+                TempData["message"] = string.Format("{0} has been saved", customerViewModel.FirstName);
+                return RedirectToAction("List");
+            }
+            else
+            {
+                return View(customerViewModel);
+            }
+        }
+
+        public ViewResult Create()
+        {
+            return View("Edit", new CustomerViewModel());
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            Customer deletedCustomer=customerRepository.Delete(id);
+            if (deletedCustomer != null)
+            {
+                TempData["message"] = string.Format("{0} has been deleted", deletedCustomer.FirstName);
+            }           
+            return RedirectToAction("List");
+        }
+
+
+        private CustomerViewModel CreateCustomerViewModel(Customer customer)
+        {
+            CustomerViewModel customerViewModel = null;
+            if (customer != null)
+            {
+                customerViewModel = new CustomerViewModel
+                {
+                    Id = customer.Id,
+                    FirstName = customer.FirstName,
+                    LastName = customer.LastName,
+                    BirthDate = customer.BirthDate,
+                    DueAmount = customer.DueAmount
+                };
+            }
+            return customerViewModel;
+        }
+
+        private Customer CreateCustomer(CustomerViewModel customerViewModel)
+        {
+            Customer customer = null;
+            if (customerViewModel != null)
+            {
+                customer = new Customer
+                {
+                    Id = customerViewModel.Id,
+                    FirstName = customerViewModel.FirstName,
+                    LastName = customerViewModel.LastName,
+                    BirthDate = customerViewModel.BirthDate,
+                    DueAmount = customerViewModel.DueAmount
+                };
+            }
+            return customer;
+        }
+
+
     }
 }

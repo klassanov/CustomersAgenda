@@ -17,7 +17,6 @@ namespace CustomersAgenda.WebUI.ViewModels
 
         [Display(Name ="Birth Date")]
         [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd MMM yyyy}")]
         public DateTime BirthDate { get; set; }
     }
 }

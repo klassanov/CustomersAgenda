@@ -10,5 +10,8 @@ namespace CustomersAgenda.DataAccess.Interfaces
     public interface ICustomerRepository
     {
         IQueryable<Customer> GetAll();
+        Customer GetById(int id);
+        void Save(Customer customer);
+        Customer Delete(int id);
     }
 }
