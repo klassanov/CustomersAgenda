@@ -1,11 +1,13 @@
-namespace CustomersAgenda.Domain.Context
-{
-    using System;
-    using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-    using CustomersAgenda.Domain.Entities;
+﻿using CustomersAgenda.Domain.Model;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
+namespace CustomersAgenda.DataAccess.Context
+{
     public partial class CustomerContext : DbContext
     {
         public DbSet<Customer> Customers { get; set; }

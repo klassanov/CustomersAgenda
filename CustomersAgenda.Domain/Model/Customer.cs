@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CustomersAgenda.Domain.Entities
+namespace CustomersAgenda.Domain.Model
 {
     public class Customer
     {
@@ -15,6 +15,5 @@ namespace CustomersAgenda.Domain.Entities
         public string LastName { get; set; }
         public decimal DueAmount { get; set; }
         public DateTime BirthDate { get; set; }
-        
     }
 }

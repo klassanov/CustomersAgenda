@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomersAgenda.WebUI", "Cu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomersAgenda.Domain", "CustomersAgenda.Domain\CustomersAgenda.Domain.csproj", "{A8E6D6A3-358C-4E54-88D5-CC4D1DA84714}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomersAgenda.DataAccess", "CustomersAgenda.DataAccess\CustomersAgenda.DataAccess.csproj", "{00B2540B-F071-46FA-99BB-B03B6657AEDF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{A8E6D6A3-358C-4E54-88D5-CC4D1DA84714}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8E6D6A3-358C-4E54-88D5-CC4D1DA84714}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8E6D6A3-358C-4E54-88D5-CC4D1DA84714}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00B2540B-F071-46FA-99BB-B03B6657AEDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00B2540B-F071-46FA-99BB-B03B6657AEDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00B2540B-F071-46FA-99BB-B03B6657AEDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00B2540B-F071-46FA-99BB-B03B6657AEDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

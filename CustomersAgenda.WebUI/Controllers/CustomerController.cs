@@ -1,12 +1,11 @@
-﻿using CustomersAgenda.Domain.Entities;
-using CustomersAgenda.Domain.Interfaces;
-using CustomersAgenda.Domain.Repositories;
+﻿using CustomersAgenda.DataAccess.Interfaces;
+using CustomersAgenda.DataAccess.Repositories;
+using CustomersAgenda.Domain.Model;
 using CustomersAgenda.WebUI.ViewModels;
 using log4net;
-using System;
+using Ninject;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace CustomersAgenda.WebUI.Controllers
@@ -15,17 +14,20 @@ namespace CustomersAgenda.WebUI.Controllers
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(CustomerController));
 
-        public ICustomerRepository CustomerRepository { get; set; }
+        //For property injection use [Inject]
+        private ICustomerRepository customerRepository { get; set; }
 
+        public CustomerController(ICustomerRepository customerRepository)
+        {
+            this.customerRepository = customerRepository;
+        }
         
 
         // GET: Customer
         public ActionResult Index()
         {
-            Logger.Debug("Controller: Customer, Action: Index");
-            //Use ninject
-            CustomerRepository = new CustomerRepository();
-            IQueryable<Customer> customers= CustomerRepository.GetAll();
+            Logger.Debug("Controller: Customer; Action: Index");
+            IQueryable<Customer> customers= customerRepository.GetAll();
             List<CustomerViewModel> customerViewModelList = null;
             //Refactor: do it by in another point
             if (customers != null)
@@ -43,7 +45,6 @@ namespace CustomersAgenda.WebUI.Controllers
                     });
                 }
             }
-
             return View(customerViewModelList);
         }
     }

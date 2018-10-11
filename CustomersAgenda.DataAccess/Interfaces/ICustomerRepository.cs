@@ -1,11 +1,11 @@
-﻿using CustomersAgenda.Domain.Entities;
+﻿using CustomersAgenda.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CustomersAgenda.Domain.Interfaces
+namespace CustomersAgenda.DataAccess.Interfaces
 {
     public interface ICustomerRepository
     {
