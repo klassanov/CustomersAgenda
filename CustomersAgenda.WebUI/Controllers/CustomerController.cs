@@ -24,8 +24,7 @@ namespace CustomersAgenda.WebUI.Controllers
         public ViewResult List()
         {
             IQueryable<Customer> customers= customerRepository.GetAll();
-            List<CustomerViewModel> customerViewModelList = null;
-            //Refactor: do it by in another point
+            List<CustomerViewModel> customerViewModelList = null;            
             if (customers != null)
             {
                 customerViewModelList = new List<CustomerViewModel>();
