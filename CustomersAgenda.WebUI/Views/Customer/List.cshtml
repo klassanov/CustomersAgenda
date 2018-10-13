@@ -8,7 +8,7 @@
 <h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create",  null, new {@class="btn btn-primary"})
 </p>
 <table class="table table-hover table-bordered">
     <tr>
@@ -24,6 +24,7 @@
         <th>
             @Html.DisplayNameFor(model => model.BirthDate)
         </th>
+        <th></th>
         <th></th>
     </tr>
 
@@ -43,11 +44,16 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @using (Html.BeginForm("Delete", "Customer"))
+            @Html.ActionLink("Payments", "Payments", new { id=item.Id })            
+        </td>
+        <td>
+            @using (Html.BeginForm("Delete", "Customer", FormMethod.Post, new { @class = "inline-form" }))
             {
                 @Html.Hidden("id", item.Id)
-                <input type="submit" value="Delete"  class="btn btn-danger"/>
+                @*<input type="submit" value="Delete" class="btn btn-danger" />*@
+                <button type="submit" class="btn btn-danger">
+                    <span class="glyphicon glyphicon-trash"></span> Delete
+                </button>
             }
         </td>
     </tr>

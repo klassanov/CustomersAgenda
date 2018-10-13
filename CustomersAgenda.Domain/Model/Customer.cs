@@ -15,5 +15,6 @@ namespace CustomersAgenda.Domain.Model
         public string LastName { get; set; }
         public decimal DueAmount { get; set; }
         public DateTime BirthDate { get; set; }
+        public virtual ICollection<Payment> PaymentsList { get; set; }
     }
 }

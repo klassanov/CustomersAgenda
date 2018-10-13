@@ -28,11 +28,22 @@
         </div>
     </div>
     <div class="container body-content">
+        
+        <div class="text-center marginTop10">
+            @if (TempData[CustomersAgenda.Domain.Constants.MESSAGE_SUCCESS_KEY] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData[CustomersAgenda.Domain.Constants.MESSAGE_SUCCESS_KEY]
+                </div>
+            }
 
-        @if (TempData["message"] != null)
-        {
-            <div>@TempData["message"]</div>
-        }
+            @if (TempData[CustomersAgenda.Domain.Constants.MESSAGE_ERROR_KEY] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData[CustomersAgenda.Domain.Constants.MESSAGE_ERROR_KEY]
+                </div>
+            }
+        </div>
 
         @RenderBody()
         <hr />

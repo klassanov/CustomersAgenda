@@ -11,6 +11,7 @@ namespace CustomersAgenda.DataAccess.Interfaces
     {
         IQueryable<Customer> GetAll();
         Customer GetById(int id);
+        Customer GetByIdWithPayments(int id);
         void Save(Customer customer);
         Customer Delete(int id);
     }

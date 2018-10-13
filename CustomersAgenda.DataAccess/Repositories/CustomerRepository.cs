@@ -2,6 +2,7 @@
 using CustomersAgenda.DataAccess.Interfaces;
 using CustomersAgenda.Domain.Model;
 using log4net;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CustomersAgenda.DataAccess.Repositories
@@ -29,6 +30,18 @@ namespace CustomersAgenda.DataAccess.Repositories
                 customer=db.Customers.Find(id);
             }
             logger.DebugFormat("Retrieved customer with Id {0}", id);
+            return customer;
+        }
+
+        public Customer GetByIdWithPayments(int id)
+        {
+            Customer customer = null;
+            using (var db = new CustomerContext())
+            {
+                customer = db.Customers.Find(id);
+                IEnumerable<Payment> paymenstList=customer.PaymentsList;
+            }
+            logger.DebugFormat("Retrieved customer with Id and payments {0}", id);
             return customer;
         }
 
@@ -71,5 +84,7 @@ namespace CustomersAgenda.DataAccess.Repositories
             }
             return dbEntry;
         }
+
+        
     }
 }

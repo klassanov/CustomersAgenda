@@ -1,5 +1,6 @@
 ﻿using CustomersAgenda.DataAccess.Interfaces;
 using CustomersAgenda.DataAccess.Repositories;
+using CustomersAgenda.Domain;
 using CustomersAgenda.Domain.Model;
 using CustomersAgenda.WebUI.ViewModels;
 using log4net;
@@ -39,6 +40,8 @@ namespace CustomersAgenda.WebUI.Controllers
         public ViewResult Edit(int id)
         {
             Customer customer=customerRepository.GetById(id);
+            customer = customerRepository.GetByIdWithPayments(id);
+            //List<Payment> payments=customer.PaymentsList.ToList();
             CustomerViewModel customerViewModel = CreateCustomerViewModel(customer);
             return View(customerViewModel);
         }
@@ -49,7 +52,7 @@ namespace CustomersAgenda.WebUI.Controllers
             if (ModelState.IsValid)
             {
                 customerRepository.Save(CreateCustomer(customerViewModel));
-                TempData["message"] = string.Format("{0} has been saved", customerViewModel.FirstName);
+                TempData[Constants.MESSAGE_SUCCESS_KEY] = string.Format("{0} has been saved", customerViewModel.FirstName);
                 return RedirectToAction("List");
             }
             else
@@ -69,9 +72,21 @@ namespace CustomersAgenda.WebUI.Controllers
             Customer deletedCustomer=customerRepository.Delete(id);
             if (deletedCustomer != null)
             {
-                TempData["message"] = string.Format("{0} has been deleted", deletedCustomer.FirstName);
+                TempData[Constants.MESSAGE_SUCCESS_KEY] = string.Format("{0} has been deleted", deletedCustomer.FirstName);
             }           
             return RedirectToAction("List");
+        }
+
+        public ViewResult Payments(int id)
+        {
+            Customer customer = customerRepository.GetByIdWithPayments(id);
+            CustomerPaymentsViewModel viewModel = new CustomerPaymentsViewModel
+            {
+                CustomerName = customer.FirstName,
+                DueAmount=customer.DueAmount,
+                Payments=customer.PaymentsList
+            };
+            return View(viewModel);
         }
 
         public CustomerViewModel CreateCustomerViewModel(Customer customer)

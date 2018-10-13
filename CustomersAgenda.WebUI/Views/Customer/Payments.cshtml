@@ -1,0 +1,25 @@
+﻿@model CustomersAgenda.WebUI.ViewModels.CustomerPaymentsViewModel
+
+@{
+    ViewBag.Title = "Payments";
+}
+
+<h2>Payments</h2>
+
+
+<table>
+    <tr>
+        <th>Amount</th>
+        <th>Description</th>
+    </tr>
+
+    @foreach (var item in Model.Payments)
+    {
+        <tr>
+            <td>@Html.DisplayFor(x=>item.Amount)</td>
+            <td>@Html.DisplayFor(x=>item.Description)</td>
+        </tr>
+    }
+</table>
+
+

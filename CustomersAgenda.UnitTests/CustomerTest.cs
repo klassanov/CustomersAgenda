@@ -50,7 +50,7 @@ namespace CustomersAgenda.UnitTests
         }
 
         [TestMethod]
-        public void Edit_CanEdit_ExistingCustomer()
+        public void Edit_CanEdit_ExistentCustomer()
         {
             //Arrange            
             CustomerController controller = new CustomerController(customerRepository.Object);
@@ -106,6 +106,56 @@ namespace CustomersAgenda.UnitTests
             //Assert
             customerRepository.Verify(m => m.Save(It.IsAny<Customer>()), Times.Never());
             Assert.IsInstanceOfType(result, typeof(ViewResult));
+        }
+
+        [TestMethod]
+        public void Delete_CanDelete_Customer()
+        {
+            //Arrange
+            CustomerController controller = new CustomerController(customerRepository.Object);
+
+            //Act
+            int customerId = 1;
+            ActionResult result=controller.Delete(customerId);
+
+            //Assert
+            customerRepository.Verify(m => m.Delete(customerId));
+        }
+
+        [TestMethod]
+        public void CreateCustomerViewModel_CanCreateViewModel()
+        {
+            //Arrange
+            CustomerController controller = new CustomerController(customerRepository.Object);
+            Customer customer = new Customer { Id = 1, FirstName = "Alex", LastName = "Klassanov", BirthDate = new DateTime(1985, 7, 23), DueAmount = 100m };
+                
+            //Act
+            CustomerViewModel customerViewModel=controller.CreateCustomerViewModel(customer);
+
+            //Assert
+            Assert.AreEqual(customer.Id, customerViewModel.Id);
+            Assert.AreEqual(customer.FirstName, customerViewModel.FirstName);
+            Assert.AreEqual(customer.LastName, customerViewModel.LastName);
+            Assert.AreEqual(customer.BirthDate, customerViewModel.BirthDate);
+            Assert.AreEqual(customer.DueAmount, customerViewModel.DueAmount);
+        }
+
+        [TestMethod]
+        public void CreateCustomer_CanCreateModel()
+        {
+            //Arrange
+            CustomerController controller = new CustomerController(customerRepository.Object);
+            CustomerViewModel customerViewModel = new CustomerViewModel { Id = 1, FirstName = "Alex", LastName = "Klassanov", BirthDate = new DateTime(1985, 7, 23), DueAmount = 100m };
+
+            //Act
+            Customer customer = controller.CreateCustomer(customerViewModel);
+
+            //Assert
+            Assert.AreEqual(customer.Id, customerViewModel.Id);
+            Assert.AreEqual(customer.FirstName, customerViewModel.FirstName);
+            Assert.AreEqual(customer.LastName, customerViewModel.LastName);
+            Assert.AreEqual(customer.BirthDate, customerViewModel.BirthDate);
+            Assert.AreEqual(customer.DueAmount, customerViewModel.DueAmount);
         }
 
     }
