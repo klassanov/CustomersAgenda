@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 using CustomersAgenda.DataAccess.Interfaces;
 using CustomersAgenda.Domain.Model;
 using CustomersAgenda.WebUI.Controllers;
@@ -27,7 +28,7 @@ namespace CustomersAgenda.UnitTests
             customerRepository = new Mock<ICustomerRepository>();
             customerRepository.Setup(m => m.GetAll()).Returns(customers.AsQueryable());
             customerRepository.Setup(m => m.GetById(It.IsAny<int>())).Returns<int>(customerId =>
-                customers.Where(x => x.Id == customerId).FirstOrDefault());          
+                customers.Where(x => x.Id == customerId).FirstOrDefault());
         }
 
 
@@ -51,7 +52,7 @@ namespace CustomersAgenda.UnitTests
         [TestMethod]
         public void Edit_CanEdit_ExistingCustomer()
         {
-            //Arrange
+            //Arrange            
             CustomerController controller = new CustomerController(customerRepository.Object);
 
             //Act
@@ -75,5 +76,37 @@ namespace CustomersAgenda.UnitTests
             //Assert
             Assert.IsNull(viewModel);
         }
+
+        [TestMethod]
+        public void Edit_CanSave_ValidChanges()
+        {
+            //Arrange
+            CustomerController controller = new CustomerController(customerRepository.Object);
+            CustomerViewModel customerViewModel = new CustomerViewModel { FirstName = "John", LastName = "Smith", DueAmount = 50, BirthDate = new DateTime(1977, 10, 20) };
+
+            //Act
+            ActionResult result=controller.Edit(customerViewModel);
+
+            //Assert: save method was called  and the result is not a view
+            customerRepository.Verify(m => m.Save(It.IsAny<Customer>()));
+            Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
+        }
+
+        [TestMethod]
+        public void Edit_CannotSave_InvalidChanges()
+        {
+            //Arrange
+            CustomerController controller = new CustomerController(customerRepository.Object);
+            CustomerViewModel customerViewModel = new CustomerViewModel();
+            controller.ModelState.AddModelError("", new Exception());
+
+            //Act
+            ActionResult result = controller.Edit(customerViewModel);          
+
+            //Assert
+            customerRepository.Verify(m => m.Save(It.IsAny<Customer>()), Times.Never());
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+        }
+
     }
 }

@@ -74,8 +74,7 @@ namespace CustomersAgenda.WebUI.Controllers
             return RedirectToAction("List");
         }
 
-
-        private CustomerViewModel CreateCustomerViewModel(Customer customer)
+        public CustomerViewModel CreateCustomerViewModel(Customer customer)
         {
             CustomerViewModel customerViewModel = null;
             if (customer != null)
@@ -92,7 +91,7 @@ namespace CustomersAgenda.WebUI.Controllers
             return customerViewModel;
         }
 
-        private Customer CreateCustomer(CustomerViewModel customerViewModel)
+        public Customer CreateCustomer(CustomerViewModel customerViewModel)
         {
             Customer customer = null;
             if (customerViewModel != null)
