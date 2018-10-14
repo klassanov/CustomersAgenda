@@ -5,6 +5,7 @@ using CustomersAgenda.Domain.Model;
 using CustomersAgenda.WebUI.ViewModels;
 using log4net;
 using Ninject;
+using CustomersAgenda.WebUI.Resources;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -24,6 +25,7 @@ namespace CustomersAgenda.WebUI.Controllers
         
         public ViewResult List()
         {
+            string s = WebResources.LabelCreate;
             IQueryable<Customer> customers= customerRepository.GetAll();
             List<CustomerViewModel> customerViewModelList = null;            
             if (customers != null)
@@ -42,6 +44,7 @@ namespace CustomersAgenda.WebUI.Controllers
             Customer customer=customerRepository.GetById(id);
             customer = customerRepository.GetByIdWithPayments(id);
             //List<Payment> payments=customer.PaymentsList.ToList();
+            ViewBag.Title = "LabelEdit";
             CustomerViewModel customerViewModel = CreateCustomerViewModel(customer);
             return View(customerViewModel);
         }
@@ -52,7 +55,7 @@ namespace CustomersAgenda.WebUI.Controllers
             if (ModelState.IsValid)
             {
                 customerRepository.Save(CreateCustomer(customerViewModel));
-                TempData[Constants.MESSAGE_SUCCESS_KEY] = string.Format("{0} has been saved", customerViewModel.FirstName);
+                TempData[Constants.MESSAGE_SUCCESS_KEY] = string.Format("{0} saved", customerViewModel.FirstName);
                 return RedirectToAction("List");
             }
             else
@@ -63,6 +66,7 @@ namespace CustomersAgenda.WebUI.Controllers
 
         public ViewResult Create()
         {
+            ViewBag.Title = "Create";
             return View("Edit", new CustomerViewModel());
         }
 
@@ -72,7 +76,7 @@ namespace CustomersAgenda.WebUI.Controllers
             Customer deletedCustomer=customerRepository.Delete(id);
             if (deletedCustomer != null)
             {
-                TempData[Constants.MESSAGE_SUCCESS_KEY] = string.Format("{0} has been deleted", deletedCustomer.FirstName);
+                TempData[Constants.MESSAGE_SUCCESS_KEY] = string.Format("{0} deleted", deletedCustomer.FirstName);
             }           
             return RedirectToAction("List");
         }
@@ -122,7 +126,5 @@ namespace CustomersAgenda.WebUI.Controllers
             }
             return customer;
         }
-
-
     }
 }

@@ -167,6 +167,11 @@
     <Compile Include="Infrastructure\DataAccessBindingsModule.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\WebResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\CustomerPaymentsViewModel.cs" />
     <Compile Include="ViewModels\CustomerViewModel.cs" />
   </ItemGroup>
@@ -240,6 +245,13 @@
       <Project>{a8e6d6a3-358c-4e54-88d5-cc4d1da84714}</Project>
       <Name>CustomersAgenda.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\WebResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>WebResources.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>CustomersAgenda.WebUI.Resources</CustomToolNamespace>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

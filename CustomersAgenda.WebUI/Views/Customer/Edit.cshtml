@@ -1,12 +1,7 @@
 ﻿@using CustomersAgenda.WebUI.ViewModels
 @model CustomerViewModel
 
-@{
-    ViewBag.Title = "Edit";
-}
-
-<h2>Edit</h2>
-
+@*<h2>@ViewBag.Title</h2>*@
 
 @using (Html.BeginForm("Edit","Customer"))
 {
@@ -60,7 +55,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "List")
+    @Html.ActionLink("BackToList", "List")
 </div>
 
 @section Scripts {

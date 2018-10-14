@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using CustomersAgenda.WebUI.Resources;
 
 namespace CustomersAgenda.WebUI.ViewModels
 {
@@ -10,7 +11,7 @@ namespace CustomersAgenda.WebUI.ViewModels
     {
         public int Id { get; set; }
 
-        [Display(Name ="First Name")]
+        [Display(Name ="LabelFirstName", ResourceType =typeof(WebResources))]
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public decimal DueAmount { get; set; }
