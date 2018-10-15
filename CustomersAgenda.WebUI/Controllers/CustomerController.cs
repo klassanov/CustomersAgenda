@@ -9,6 +9,7 @@ using CustomersAgenda.WebUI.Resources;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System;
 
 namespace CustomersAgenda.WebUI.Controllers
 {
@@ -25,7 +26,8 @@ namespace CustomersAgenda.WebUI.Controllers
         
         public ViewResult List()
         {
-            string s = WebResources.LabelCreate;
+
+
             IQueryable<Customer> customers= customerRepository.GetAll();
             List<CustomerViewModel> customerViewModelList = null;            
             if (customers != null)
@@ -35,13 +37,16 @@ namespace CustomersAgenda.WebUI.Controllers
                 {
                     customerViewModelList.Add(CreateCustomerViewModel(item));
                 }
-            }
+            }           
             return View(customerViewModelList);
         }
 
         public ViewResult Edit(int id)
         {
-            Customer customer=customerRepository.GetById(id);
+            int x = 0;
+            int y = 5 / x;
+
+            Customer customer =customerRepository.GetById(id);
             customer = customerRepository.GetByIdWithPayments(id);
             //List<Payment> payments=customer.PaymentsList.ToList();
             ViewBag.Title = "LabelEdit";
@@ -91,6 +96,11 @@ namespace CustomersAgenda.WebUI.Controllers
                 Payments=customer.PaymentsList
             };
             return View(viewModel);
+        }
+
+        public ViewResult Error()
+        {
+            return View();
         }
 
         public CustomerViewModel CreateCustomerViewModel(Customer customer)
