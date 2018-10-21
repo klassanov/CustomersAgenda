@@ -27,7 +27,7 @@ namespace CustomersAgenda.WebUI
         }
 
       
-       
+      
         protected void Application_Error(Object sender, EventArgs e)
         {
             if (Server != null)
@@ -36,8 +36,11 @@ namespace CustomersAgenda.WebUI
                 Exception ex=Server.GetLastError();
                 ILog logger = LogManager.GetLogger(typeof(MvcApplication));
                 logger.Error("Unhandled application exception occured", ex);
-                Server.ClearError();              
-                string redirectRoute = ConfigurationManager.AppSettings["errorDefaultRoute"]; 
+                Server.ClearError();
+                
+                //Static html error page, not a route
+                string redirectRoute = ConfigurationManager.AppSettings["errorDefaultRoute"];
+
                 HttpException httpException = ex as HttpException;
                 if(httpException!=null)
                 {
@@ -51,9 +54,11 @@ namespace CustomersAgenda.WebUI
                             break;
                     }
                 }
+                
                 Response.Redirect(string.Format("~{0}", redirectRoute));
             }
         }
+       
        
        
     }

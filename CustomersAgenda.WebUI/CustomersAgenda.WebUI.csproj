@@ -158,6 +158,9 @@
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\CustomErrorManagerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="CustomExceptionFilters\DefaultExceptionAttribute.cs" />
+    <Compile Include="CustomExceptionFilters\LogExceptionFilter.cs" />
+    <Compile Include="CustomExceptionFilters\ProfileAllAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -178,6 +181,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\404.png" />
+    <Content Include="Content\StaticPages\LogExceptionPage.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

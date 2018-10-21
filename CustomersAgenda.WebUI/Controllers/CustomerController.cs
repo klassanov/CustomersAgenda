@@ -10,9 +10,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System;
+using CustomersAgenda.WebUI.CustomExceptionFilters;
 
 namespace CustomersAgenda.WebUI.Controllers
 {
+    //[LogExceptionFilter]
+    //[DefaultException]
+    //[DefaultException(View ="Status404")]
     public class CustomerController : Controller
     {
         // private static readonly ILog Logger = LogManager.GetLogger(typeof(CustomerController));
@@ -41,6 +45,7 @@ namespace CustomersAgenda.WebUI.Controllers
             return View(customerViewModelList);
         }
 
+
         public ViewResult Edit(int id)
         {
             int x = 0;
@@ -52,6 +57,11 @@ namespace CustomersAgenda.WebUI.Controllers
             ViewBag.Title = "LabelEdit";
             CustomerViewModel customerViewModel = CreateCustomerViewModel(customer);
             return View(customerViewModel);
+        }
+
+        public ActionResult Test()
+        {
+            throw new Exception("Test exception");
         }
 
         [HttpPost]
